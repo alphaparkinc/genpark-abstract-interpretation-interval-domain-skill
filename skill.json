@@ -1,0 +1,13 @@
+{
+  "name": "genpark-abstract-interpretation-interval-domain-skill",
+  "version": "1.0.0",
+  "description": "Abstract Interpretation static analyzer using the numeric Interval Domain to prove buffer bounds safety and absence of division-by-zero errors.",
+  "topics": [
+    "genpark-skill",
+    "agentic-ai",
+    "abstract-interpretation",
+    "interval-domain",
+    "static-analysis",
+    "program-verification"
+  ]
+}
