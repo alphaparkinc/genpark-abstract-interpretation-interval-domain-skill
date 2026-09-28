@@ -1,30 +1,16 @@
-# genpark-abstract-interpretation-interval-domain-skill
+# Abstract Interpretation Interval Domain Skill
 
-[![Agentic Skill](https://img.shields.io/badge/GenPark-Agentic__Skill-blue.svg)](https://github.com/alphaparkinc/genpark-abstract-interpretation-interval-domain-skill)
-[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-brightgreen.svg)](https://python.org)
-[![Zero Dependencies](https://img.shields.io/badge/Dependencies-0%20Pip-orange.svg)](#)
-[![Dual Org Verified](https://img.shields.io/badge/GitHub-Dual__Org-purple.svg)](#)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-
-> Abstract Interpretation static analyzer using the numeric Interval Domain to prove buffer bounds safety and absence of division-by-zero errors.
-
-## Architecture Overview
-
-```mermaid
-flowchart TD
-    A[Program AST / Expression] -->|Grammar & Types| B[MCP Server / Client]
-    B --> C[genpark-abstract-interpretation-interval-domain-skill Formal Engine]
-    C --> D[Beta Reduction / Interval Domain / Fixpoint Monotonicity]
-    D --> E[Provable Semantics & Inferred Type Output]
-    E -->|Structured Payload| A
-```
+Robust, zero-dependency Python implementation of **Abstract Interpretation over the Interval Domain** for static bound checking and program verification.
 
 ## Features
-- **0 External Pip Dependencies**: Pure Python standard library implementation.
-- **MCP Protocol Ready**: Includes Model Context Protocol server script (`mcp_server.py`).
-- **Production Standard**: Mathematical proof consistency and robust boundary verification.
+- **Sound Over-Approximation**: Preserves conservative lower and upper bounds across arithmetic operations.
+- **Widening Operators**: Guarantees fixed-point convergence across cyclic loop control-flow graphs.
+- **Zero External Dependencies**: Pure Python standard library.
+- **Native MCP Protocol**: JSON-RPC 2.0 stdio server compatible with Claude Desktop, Cursor, and Windsurf.
 
-## Quick Start
-```bash
-python example_usage.py
+## Architecture
+```mermaid
+graph LR
+    P1["Interval [a1, b1]"] & P2["Interval [a2, b2]"] --> Op["Abstract Operator (+, *, join, widen)"]
+    Op --> SoundBound["Safe Sound Over-Approximation [L, U]"]
 ```
