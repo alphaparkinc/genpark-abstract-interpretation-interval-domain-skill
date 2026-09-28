@@ -1,0 +1,6 @@
+name: genpark-abstract-interpretation-interval-domain-skill
+version: 1.0.0
+description: Static program analysis abstract interpretation engine over the interval domain with widening
+command: python
+args:
+  - mcp_server.py
