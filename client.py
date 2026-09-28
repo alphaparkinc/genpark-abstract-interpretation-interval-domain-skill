@@ -1,22 +1,30 @@
-class IntervalDomainAnalyzer:
-    """Interval domain static analysis."""
-    def analyze_binary_op(self, int1: tuple[float, float], int2: tuple[float, float], op: str) -> dict:
-        l1, h1 = int1
-        l2, h2 = int2
-        if op == "+":
-            res = (l1 + l2, h1 + h2)
-        elif op == "*":
-            products = [l1 * l2, l1 * h2, h1 * l2, h1 * h2]
-            res = (min(products), max(products))
-        elif op == "-":
-            res = (l1 - h2, h1 - l2)
-        else:
-            res = (min(l1, l2), max(h1, h2))
+"""Abstract Interpretation over Interval Domain Engine.
+100% Python Standard Library.
+"""
 
-        return {
-            "interval_1": list(int1),
-            "interval_2": list(int2),
-            "op": op,
-            "abstract_interval": [round(res[0], 4), round(res[1], 4)],
-            "contains_zero": (res[0] <= 0 <= res[1])
-        }
+class IntervalDomain:
+    """Abstract interpretation interval domain [low, high] with widening."""
+    def __init__(self, low, high):
+        self.low = low
+        self.high = high
+
+    def add(self, other):
+        return IntervalDomain(self.low + other.low, self.high + other.high)
+
+    def multiply(self, other):
+        prods = [
+            self.low * other.low, self.low * other.high,
+            self.high * other.low, self.high * other.high
+        ]
+        return IntervalDomain(min(prods), max(prods))
+
+    def join(self, other):
+        return IntervalDomain(min(self.low, other.low), max(self.high, other.high))
+
+    def widen(self, other):
+        new_low = -float("inf") if other.low < self.low else self.low
+        new_high = float("inf") if other.high > self.high else self.high
+        return IntervalDomain(new_low, new_high)
+
+    def to_dict(self):
+        return {"low": self.low, "high": self.high}
