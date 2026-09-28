@@ -1,14 +1,12 @@
-from client import IntervalDomainAnalyzer
+from client import IntervalDomain
 
-def main():
-    print("=== Abstract Interpretation Interval Domain ===")
-    analyzer = IntervalDomainAnalyzer()
-    res = analyzer.analyze_binary_op((1.0, 3.0), (2.0, 5.0), "+")
-    print("Analysis Result:", res)
-    assert res["abstract_interval"] == [3.0, 8.0]
-    assert res["contains_zero"] is False
+i1 = IntervalDomain(2.0, 8.0)
+i2 = IntervalDomain(-3.0, 5.0)
 
-    print("Interval Domain Analyzer verified successfully!")
+added = i1.add(i2)
+multiplied = i1.multiply(i2)
+joined = i1.join(i2)
 
-if __name__ == "__main__":
-    main()
+print(f"Add: [{added.low}, {added.high}]")
+print(f"Multiply: [{multiplied.low}, {multiplied.high}]")
+print(f"Join: [{joined.low}, {joined.high}]")
